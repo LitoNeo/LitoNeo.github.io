@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="Neo&#39;s blog">
 <meta property="og:description" content="apschedulerAdvanced Python Scheduler">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-17T06:37:02.103Z">
+<meta property="og:updated_time" content="2019-05-17T07:00:05.090Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-apscheduler">
 <meta name="twitter:description" content="apschedulerAdvanced Python Scheduler">
@@ -174,21 +174,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="apscheduler"><a href="#apscheduler" class="headerlink" title="apscheduler"></a>apscheduler</h1><p>Advanced Python Scheduler<br><a id="more"></a></p>
-<h3 id="aps内置三种计划方式"><a href="#aps内置三种计划方式" class="headerlink" title="aps内置三种计划方式"></a>aps内置三种计划方式</h3><blockquote>
-<ol>
-<li>Cron-style scheduling(Cron is mostly used at Linux)</li>
-<li>Interval-based executation</li>
-<li>One-off delayed executation</li>
-</ol>
-</blockquote>
+        <h1 id="apscheduler"><a href="#apscheduler" class="headerlink" title="apscheduler"></a>apscheduler</h1><p>Advanced Python Scheduler</p>
+<a id="more"></a>
 <h3 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h3><blockquote>
 <ol>
 <li><strong>triggers</strong>: basically, there are three types<blockquote>
 <ul>
-<li>data: run the job <strong>just once</strong> at certain point of time</li>
-<li>interval: cycling job</li>
-<li>cron:  run the job periodically at certain time(s) of day</li>
+<li><strong>data</strong>: run the job <strong>just once</strong> at certain point of time</li>
+<li><strong>interval</strong>: cycling job</li>
+<li><strong>cron</strong>:  run the job periodically at certain time(s) of day</li>
 </ul>
 </blockquote>
 </li>
@@ -199,11 +193,14 @@
 </blockquote>
 <h3 id="Type-of-scheduler"><a href="#Type-of-scheduler" class="headerlink" title="Type of scheduler"></a>Type of scheduler</h3><blockquote>
 <ol>
-<li>BlockingScheduler: Boclked, use only if it is the only thing in process</li>
-<li>BackgroundScheduler: run background</li>
+<li><strong>BlockingScheduler</strong>: Boclked, use only if it is the only thing in process</li>
+<li><strong>BackgroundScheduler</strong>: run background</li>
 <li>其他与框架结合的任务执行器: AsyncScheduler, GeventScheduler, TornadoScheduler, TwistedScheduler, QtScheduler</li>
 </ol>
 </blockquote>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>typically, create a <code>Timer</code> class to regulate all types of scheduers is fine.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> apscheduler.schedulers.background <span class="keyword">import</span> BackgroundScheduler</span><br><span class="line"><span class="keyword">from</span> apscheduler.triggers.date <span class="keyword">import</span> DateTrigger</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Timer</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.scheduler = BackgroundScheduler()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">submit_job</span><span class="params">(self, func, delay_seconds)</span>:</span></span><br><span class="line">        <span class="string">"""</span></span><br><span class="line"><span class="string">        :param func:</span></span><br><span class="line"><span class="string">        :param delay_seconds:</span></span><br><span class="line"><span class="string">        :return:</span></span><br><span class="line"><span class="string">        :rtype str</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        <span class="keyword">return</span> self.scheduler.add_job(func=func, trigger=DateTrigger(datetime.datetime.now() + datetime.timedelta(seconds=delay_seconds))).id</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">submit_periodical_job</span><span class="params">(self, func, period_seconds, id)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.scheduler.add_job(func,<span class="string">'interval'</span>, seconds=period_seconds, id=id).id</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">remove_job</span><span class="params">(self, job_id)</span>:</span></span><br><span class="line">        self.scheduler.remove_job(job_id)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">start</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.scheduler.start()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">shutdown</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.scheduler.remove_all_jobs()</span><br><span class="line">        self.scheduler.shutdown()</span><br></pre></td></tr></table></figure>
+<p>and then at process, add jobs and happy running</p>
 
       
 
