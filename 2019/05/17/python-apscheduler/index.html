@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>python-apscheduler | Neo&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="apschedulerAdvanced Python Scheduler aps内置三种计划方式  Cron-style scheduling(Cron is mostly used at Linux) Interval-based executation One-off delayed executation">
+  <meta name="description" content="apschedulerAdvanced Python Scheduler">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python-apscheduler">
 <meta property="og:url" content="http://yoursite.com/2019/05/17/python-apscheduler/index.html">
 <meta property="og:site_name" content="Neo&#39;s blog">
-<meta property="og:description" content="apschedulerAdvanced Python Scheduler aps内置三种计划方式  Cron-style scheduling(Cron is mostly used at Linux) Interval-based executation One-off delayed executation">
+<meta property="og:description" content="apschedulerAdvanced Python Scheduler">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-17T06:15:06.081Z">
+<meta property="og:updated_time" content="2019-05-17T06:37:02.103Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python-apscheduler">
-<meta name="twitter:description" content="apschedulerAdvanced Python Scheduler aps内置三种计划方式  Cron-style scheduling(Cron is mostly used at Linux) Interval-based executation One-off delayed executation">
+<meta name="twitter:description" content="apschedulerAdvanced Python Scheduler">
   
     <link rel="alternative" href="/atom.xml" title="Neo&#39;s blog" type="application/atom+xml">
   
@@ -174,12 +174,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="apscheduler"><a href="#apscheduler" class="headerlink" title="apscheduler"></a>apscheduler</h1><p>Advanced Python Scheduler</p>
+        <h1 id="apscheduler"><a href="#apscheduler" class="headerlink" title="apscheduler"></a>apscheduler</h1><p>Advanced Python Scheduler<br><a id="more"></a></p>
 <h3 id="aps内置三种计划方式"><a href="#aps内置三种计划方式" class="headerlink" title="aps内置三种计划方式"></a>aps内置三种计划方式</h3><blockquote>
 <ol>
 <li>Cron-style scheduling(Cron is mostly used at Linux)</li>
 <li>Interval-based executation</li>
 <li>One-off delayed executation</li>
+</ol>
+</blockquote>
+<h3 id="Basic-concepts"><a href="#Basic-concepts" class="headerlink" title="Basic concepts"></a>Basic concepts</h3><blockquote>
+<ol>
+<li><strong>triggers</strong>: basically, there are three types<blockquote>
+<ul>
+<li>data: run the job <strong>just once</strong> at certain point of time</li>
+<li>interval: cycling job</li>
+<li>cron:  run the job periodically at certain time(s) of day</li>
+</ul>
+</blockquote>
+</li>
+<li>job stores</li>
+<li>executors</li>
+<li>schedulers</li>
+</ol>
+</blockquote>
+<h3 id="Type-of-scheduler"><a href="#Type-of-scheduler" class="headerlink" title="Type of scheduler"></a>Type of scheduler</h3><blockquote>
+<ol>
+<li>BlockingScheduler: Boclked, use only if it is the only thing in process</li>
+<li>BackgroundScheduler: run background</li>
+<li>其他与框架结合的任务执行器: AsyncScheduler, GeventScheduler, TornadoScheduler, TwistedScheduler, QtScheduler</li>
 </ol>
 </blockquote>
 
