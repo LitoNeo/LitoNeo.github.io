@@ -152,6 +152,116 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-FactoryMethod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/FactoryMethod/">Protocol_NET</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/27/FactoryMethod/" class="archive-article-date">
+  	<time datetime="2019-05-27T11:34:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个用于创建对象的接口,让子类决定实例化哪一个类,Factory Method使得一个类的实例化延迟到其子类</span><br></pre></td></tr></table></figure>
+<p><strong>简单工厂模式</strong>是定义一个统一的工厂类,这个工厂类根据传入参数的不同,可以返回不同的实例化对象. –由此可见,这个工厂类对应了一系列的实现类<br><strong>工厂模式</strong>是对简单工厂模式的进一步深化,在工厂模式中,不再提供统一的工厂类来创建所有的对象,<strong>而是针对不同的对象提供不同的工厂</strong> –也就是说每个对象都有与之对应的工厂.</p>
+<p>其结构可以分为以下四个部分:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">方法接口          工厂基类</span><br><span class="line">   |               |</span><br><span class="line">   |               |</span><br><span class="line">具体产品实现 --- 具体工厂实现</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-实例讲解"><a href="#2-实例讲解" class="headerlink" title="2. 实例讲解"></a>2. 实例讲解</h2><h3 id="例1-实现一个图片加载类-它具有多个图片加载器-用来加载jpg-png-gif-每个加载器都有一个read-方法"><a href="#例1-实现一个图片加载类-它具有多个图片加载器-用来加载jpg-png-gif-每个加载器都有一个read-方法" class="headerlink" title="例1: 实现一个图片加载类,它具有多个图片加载器,用来加载jpg,png,gif,每个加载器都有一个read()方法"></a>例1: 实现一个图片加载类,它具有多个图片加载器,用来加载jpg,png,gif,每个加载器都有一个read()方法</h3><h4 id="1-1-首先-编写一个加载器的公共接口-Reader"><a href="#1-1-首先-编写一个加载器的公共接口-Reader" class="headerlink" title="1.1 首先,编写一个加载器的公共接口 Reader"></a>1.1 首先,编写一个加载器的公共接口 Reader</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> interface <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-2实现不同的加载器xxxReader"><a href="#1-2实现不同的加载器xxxReader" class="headerlink" title="1.2实现不同的加载器xxxReader"></a>1.2实现不同的加载器xxxReader</h4><p>jpg图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class JpgReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read jpg);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>pug图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class PngReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read png"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>gif图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class GifReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read gif"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-3-定义一个-lt-抽象的-gt-工厂接口ReaderFactory"><a href="#1-3-定义一个-lt-抽象的-gt-工厂接口ReaderFactory" class="headerlink" title="1.3 定义一个&lt;抽象的&gt;工厂接口ReaderFactory"></a>1.3 定义一个&lt;抽象的&gt;工厂接口ReaderFactory</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> interface <span class="title">ReaderFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// getReader()将用以返回我们的Reader类</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="1-4-对每一个图片加载器都提供一个工厂类xxxReaderFactory"><a href="#1-4-对每一个图片加载器都提供一个工厂类xxxReaderFactory" class="headerlink" title="1.4 对每一个图片加载器都提供一个工厂类xxxReaderFactory"></a>1.4 对每一个图片加载器都提供一个工厂类xxxReaderFactory</h4><p>jpg加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JpgReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JpgReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>png加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PngReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PngReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>gif加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GifReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> GifReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="1-5-客户端使用"><a href="#1-5-客户端使用" class="headerlink" title="1.5 客户端使用"></a>1.5 客户端使用</h4><p>读取jpg<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ReaderFactory factory = <span class="keyword">new</span> JpgReaderFactory();  <span class="comment">// 先创建一个工厂</span></span><br><span class="line">Reader reader = factory.getReader();             <span class="comment">// 再实例化一个接口</span></span><br><span class="line">reader.read();</span><br></pre></td></tr></table></figure></p>
+<h3 id="例2-实现一个可以导出不同文件类型的应用"><a href="#例2-实现一个可以导出不同文件类型的应用" class="headerlink" title="例2: 实现一个可以导出不同文件类型的应用"></a>例2: 实现一个可以导出不同文件类型的应用</h3><h4 id="2-1-实现产品的功能接口"><a href="#2-1-实现产品的功能接口" class="headerlink" title="2.1 实现产品的功能接口"></a>2.1 实现产品的功能接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="comment">// 导出文件, 而不指定具体的导出格式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-2-接口的具体的不同实现"><a href="#2-2-接口的具体的不同实现" class="headerlink" title="2.2 接口的具体的不同实现"></a>2.2 接口的具体的不同实现</h4><p>导出为txt文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportTxtFile</span> <span class="keyword">implements</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"导出为txt"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>导出为数据库db文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pulic <span class="class"><span class="keyword">class</span> <span class="title">ExportDBFile</span> <span class="keyword">implements</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"导出为db"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-3-工厂基类-或者是接口interface-实现的功能是一样的"><a href="#2-3-工厂基类-或者是接口interface-实现的功能是一样的" class="headerlink" title="2.3 工厂基类(或者是接口interface,实现的功能是一样的)"></a>2.3 工厂基类(或者是接口interface,实现的功能是一样的)</h4><p>只不过使用抽象类可以在其中实现一些具体的功能<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里,抽象工厂可以实现(具体方法)接口,从而客户端可以直接调用</span></span><br><span class="line">    <span class="comment">// 通常在这些方法中需要调用工厂方法(上面定义的抽象方法)来获取接口的实现对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        ExportFileApi api = factoryMethod();</span><br><span class="line">        <span class="keyword">return</span> api.export(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-4-具体实现类对应的工厂"><a href="#2-4-具体实现类对应的工厂" class="headerlink" title="2.4 具体实现类对应的工厂"></a>2.4 具体实现类对应的工厂</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportTxtFileFactory</span> <span class="keyword">extends</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExportTxtFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportDBFileFactory</span> <span class="keyword">extends</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExportDBFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="2-5-客户端使用"><a href="#2-5-客户端使用" class="headerlink" title="2.5 客户端使用"></a>2.5 客户端使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExportFactory factory = <span class="keyword">new</span> ExportDBFileFactory();</span><br><span class="line">factory.export(<span class="string">"./text"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="2-6-扩展-使用抽象类方法重写图像加载工厂基类及其客户端调用实现"><a href="#2-6-扩展-使用抽象类方法重写图像加载工厂基类及其客户端调用实现" class="headerlink" title="2.6 扩展: 使用抽象类方法重写图像加载工厂基类及其客户端调用实现"></a>2.6 扩展: 使用抽象类方法重写图像加载工厂基类及其客户端调用实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> class <span class="title">ReaderFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> Reader <span class="title">factoryMethod</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Reader reader = factoryMethod();</span><br><span class="line">        <span class="keyword">return</span> reader.read();</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ReaderFactory factory = <span class="keyword">new</span> JpgReaderFacrory();</span><br><span class="line">factory.read();</span><br></pre></td></tr></table></figure>
+<h2 id="3-进一步理解"><a href="#3-进一步理解" class="headerlink" title="3. 进一步理解"></a>3. 进一步理解</h2><p>简单工厂只有一个统一的工厂类.<br>而工厂方法是针对每个要创建的对象都会提供一个工厂类,<strong>这些工厂类都实现了一个工厂基类</strong><br>客户端操作的时候,完全接触不到具体的实现类,只会接触到工厂的接口对象ReaderFactory和所有对象实现的公共接口Reader</p>
+<h2 id="4-使用场景"><a href="#4-使用场景" class="headerlink" title="4. 使用场景"></a>4. 使用场景</h2><p>(1) 客户端不需要知道他所创建的对象的类,只需要知道创建他的工厂名就可以了<br>(2) 客户端可以通过子类来指定创建对应的对象</p>
+<hr>
+<hr>
+<h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><p>进一步深化工厂方法<br>该模式下,工厂类不单单可以创建一个对象,<strong>而是可以创建一组对象</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DesignModule</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/smartcar//" class="article-tag-list-link color4">smartcar</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/27/FactoryMethod/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ArticleCollect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -645,6 +755,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DesignModule</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
