@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Neo&#39;s blog</title>
+  <title>BuilderMedule | Neo&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Neo&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="keywords" content="DesignModule">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BuilderMedule">
+<meta property="og:url" content="http://yoursite.com/2019/05/27/BuilderMedule/index.html">
 <meta property="og:site_name" content="Neo&#39;s blog">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-27T11:32:02.141Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Neo&#39;s blog">
+<meta name="twitter:title" content="BuilderMedule">
   
     <link rel="alternative" href="/atom.xml" title="Neo&#39;s blog" type="application/atom+xml">
   
@@ -150,126 +152,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-FactoryMethod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-BuilderMedule" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/FactoryMethod/">Protocol_NET</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/27/FactoryMethod/" class="archive-article-date">
-  	<time datetime="2019-05-27T11:34:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h1><h2 id="1-定义"><a href="#1-定义" class="headerlink" title="1. 定义"></a>1. 定义</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个用于创建对象的接口,让子类决定实例化哪一个类,Factory Method使得一个类的实例化延迟到其子类</span><br></pre></td></tr></table></figure>
-<p><strong>简单工厂模式</strong>是定义一个统一的工厂类,这个工厂类根据传入参数的不同,可以返回不同的实例化对象. –由此可见,这个工厂类对应了一系列的实现类<br><strong>工厂模式</strong>是对简单工厂模式的进一步深化,在工厂模式中,不再提供统一的工厂类来创建所有的对象,<strong>而是针对不同的对象提供不同的工厂</strong> –也就是说每个对象都有与之对应的工厂.</p>
-<p>其结构可以分为以下四个部分:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">方法接口          工厂基类</span><br><span class="line">   |               |</span><br><span class="line">   |               |</span><br><span class="line">具体产品实现 --- 具体工厂实现</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-实例讲解"><a href="#2-实例讲解" class="headerlink" title="2. 实例讲解"></a>2. 实例讲解</h2><h3 id="例1-实现一个图片加载类-它具有多个图片加载器-用来加载jpg-png-gif-每个加载器都有一个read-方法"><a href="#例1-实现一个图片加载类-它具有多个图片加载器-用来加载jpg-png-gif-每个加载器都有一个read-方法" class="headerlink" title="例1: 实现一个图片加载类,它具有多个图片加载器,用来加载jpg,png,gif,每个加载器都有一个read()方法"></a>例1: 实现一个图片加载类,它具有多个图片加载器,用来加载jpg,png,gif,每个加载器都有一个read()方法</h3><h4 id="1-1-首先-编写一个加载器的公共接口-Reader"><a href="#1-1-首先-编写一个加载器的公共接口-Reader" class="headerlink" title="1.1 首先,编写一个加载器的公共接口 Reader"></a>1.1 首先,编写一个加载器的公共接口 Reader</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> interface <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-2实现不同的加载器xxxReader"><a href="#1-2实现不同的加载器xxxReader" class="headerlink" title="1.2实现不同的加载器xxxReader"></a>1.2实现不同的加载器xxxReader</h4><p>jpg图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class JpgReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read jpg);</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>pug图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class PngReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read png"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>gif图片加载器<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> class GifReader implements <span class="title">Reader</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"read gif"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-3-定义一个-lt-抽象的-gt-工厂接口ReaderFactory"><a href="#1-3-定义一个-lt-抽象的-gt-工厂接口ReaderFactory" class="headerlink" title="1.3 定义一个&lt;抽象的&gt;工厂接口ReaderFactory"></a>1.3 定义一个&lt;抽象的&gt;工厂接口ReaderFactory</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> interface <span class="title">ReaderFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// getReader()将用以返回我们的Reader类</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-4-对每一个图片加载器都提供一个工厂类xxxReaderFactory"><a href="#1-4-对每一个图片加载器都提供一个工厂类xxxReaderFactory" class="headerlink" title="1.4 对每一个图片加载器都提供一个工厂类xxxReaderFactory"></a>1.4 对每一个图片加载器都提供一个工厂类xxxReaderFactory</h4><p>jpg加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JpgReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> JpgReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>png加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PngReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PngReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>gif加载器工厂<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GifReaderFactory</span> <span class="keyword">implements</span> <span class="title">ReaderFactory</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function">Reader <span class="title">getReader</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> GifReader();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-5-客户端使用"><a href="#1-5-客户端使用" class="headerlink" title="1.5 客户端使用"></a>1.5 客户端使用</h4><p>读取jpg<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ReaderFactory factory = <span class="keyword">new</span> JpgReaderFactory();  <span class="comment">// 先创建一个工厂</span></span><br><span class="line">Reader reader = factory.getReader();             <span class="comment">// 再实例化一个接口</span></span><br><span class="line">reader.read();</span><br></pre></td></tr></table></figure></p>
-<h3 id="例2-实现一个可以导出不同文件类型的应用"><a href="#例2-实现一个可以导出不同文件类型的应用" class="headerlink" title="例2: 实现一个可以导出不同文件类型的应用"></a>例2: 实现一个可以导出不同文件类型的应用</h3><h4 id="2-1-实现产品的功能接口"><a href="#2-1-实现产品的功能接口" class="headerlink" title="2.1 实现产品的功能接口"></a>2.1 实现产品的功能接口</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="comment">// 导出文件, 而不指定具体的导出格式</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-2-接口的具体的不同实现"><a href="#2-2-接口的具体的不同实现" class="headerlink" title="2.2 接口的具体的不同实现"></a>2.2 接口的具体的不同实现</h4><p>导出为txt文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportTxtFile</span> <span class="keyword">implements</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"导出为txt"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>导出为数据库db文件<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pulic <span class="class"><span class="keyword">class</span> <span class="title">ExportDBFile</span> <span class="keyword">implements</span> <span class="title">ExportFileApi</span></span>&#123;</span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"导出为db"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-3-工厂基类-或者是接口interface-实现的功能是一样的"><a href="#2-3-工厂基类-或者是接口interface-实现的功能是一样的" class="headerlink" title="2.3 工厂基类(或者是接口interface,实现的功能是一样的)"></a>2.3 工厂基类(或者是接口interface,实现的功能是一样的)</h4><p>只不过使用抽象类可以在其中实现一些具体的功能<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里,抽象工厂可以实现(具体方法)接口,从而客户端可以直接调用</span></span><br><span class="line">    <span class="comment">// 通常在这些方法中需要调用工厂方法(上面定义的抽象方法)来获取接口的实现对象</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">export</span><span class="params">(String file)</span></span>&#123;</span><br><span class="line">        ExportFileApi api = factoryMethod();</span><br><span class="line">        <span class="keyword">return</span> api.export(data);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="2-4-具体实现类对应的工厂"><a href="#2-4-具体实现类对应的工厂" class="headerlink" title="2.4 具体实现类对应的工厂"></a>2.4 具体实现类对应的工厂</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportTxtFileFactory</span> <span class="keyword">extends</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExportTxtFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExportDBFileFactory</span> <span class="keyword">extends</span> <span class="title">ExportFactory</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> ExportFileApi <span class="title">factoryMethod</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ExportDBFile();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="2-5-客户端使用"><a href="#2-5-客户端使用" class="headerlink" title="2.5 客户端使用"></a>2.5 客户端使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ExportFactory factory = <span class="keyword">new</span> ExportDBFileFactory();</span><br><span class="line">factory.export(<span class="string">"./text"</span>);</span><br></pre></td></tr></table></figure>
-<h4 id="2-6-扩展-使用抽象类方法重写图像加载工厂基类及其客户端调用实现"><a href="#2-6-扩展-使用抽象类方法重写图像加载工厂基类及其客户端调用实现" class="headerlink" title="2.6 扩展: 使用抽象类方法重写图像加载工厂基类及其客户端调用实现"></a>2.6 扩展: 使用抽象类方法重写图像加载工厂基类及其客户端调用实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> class <span class="title">ReaderFactory</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">abstract</span> Reader <span class="title">factoryMethod</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">read</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Reader reader = factoryMethod();</span><br><span class="line">        <span class="keyword">return</span> reader.read();</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ReaderFactory factory = <span class="keyword">new</span> JpgReaderFacrory();</span><br><span class="line">factory.read();</span><br></pre></td></tr></table></figure>
-<h2 id="3-进一步理解"><a href="#3-进一步理解" class="headerlink" title="3. 进一步理解"></a>3. 进一步理解</h2><p>简单工厂只有一个统一的工厂类.<br>而工厂方法是针对每个要创建的对象都会提供一个工厂类,<strong>这些工厂类都实现了一个工厂基类</strong><br>客户端操作的时候,完全接触不到具体的实现类,只会接触到工厂的接口对象ReaderFactory和所有对象实现的公共接口Reader</p>
-<h2 id="4-使用场景"><a href="#4-使用场景" class="headerlink" title="4. 使用场景"></a>4. 使用场景</h2><p>(1) 客户端不需要知道他所创建的对象的类,只需要知道创建他的工厂名就可以了<br>(2) 客户端可以通过子类来指定创建对应的对象</p>
-<hr>
-<hr>
-<h1 id="抽象工厂模式"><a href="#抽象工厂模式" class="headerlink" title="抽象工厂模式"></a>抽象工厂模式</h1><p>进一步深化工厂方法<br>该模式下,工厂类不单单可以创建一个对象,<strong>而是可以创建一组对象</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DesignModule</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/smartcar//" class="article-tag-list-link color4">smartcar</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/27/FactoryMethod/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-BuilderMedule" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/27/BuilderMedule/">BuilderMedule</a>
+    <h1 class="article-title" itemprop="name">
+      BuilderMedule
     </h1>
   
 
@@ -286,6 +176,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -304,16 +215,84 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/27/BuilderMedule/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/27/BuilderMedule/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/05/27/FactoryMethod/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Protocol_NET
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/05/18/ArticleCollect/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ArticleCollect</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -333,410 +312,14 @@
 
 
 
-
   
-    <article id="post-ArticleCollect" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/18/ArticleCollect/">ArticleCollect</a>
-    </h1>
   
 
-        
-        <a href="/2019/05/18/ArticleCollect/" class="archive-article-date">
-  	<time datetime="2019-05-18T05:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ol>
-<li><p><a href="http://blog.sciencenet.cn/blog-951291-1145335.html" target="_blank" rel="noopener">智能网联汽车云控基础平台及其实现</a><br>一篇介绍清华大学汽车工程系教授在”首届车路协同自动驾驶国际论坛”上所做的《智能网联汽车云控基础平台及其实现》的主题演讲。介绍了国内外智能网联汽车云平台的发展现状及背景，分享了他在云控基础平台的架构方法与功能定位以及云控基础平台的设计与应用领域的探索。</p>
-<p> <strong>关键词</strong><br> ICT(信息通信技术), 标准, 五大基础平台, 高精度动态地图, <a href="https://zhuanlan.zhihu.com/p/28078328" target="_blank" rel="noopener">CPS系统</a>, 按需响应、快速迭代、动态优化, 协同式无人驾驶<br><img src="https://pic1.zhimg.com/80/v2-e6cd21e410684546f21b4eec48a49e18_hd.png"></p>
-</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/CloudBasedAutonomous//" class="article-tag-list-link color1">CloudBasedAutonomous</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/18/ArticleCollect/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-specific-autonomous-based-on-cloud" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/18/specific-autonomous-based-on-cloud/">specific_autonomous_based_on_cloud</a>
-    </h1>
   
 
-        
-        <a href="/2019/05/18/specific-autonomous-based-on-cloud/" class="archive-article-date">
-  	<time datetime="2019-05-18T02:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一种基于云调度的特定场景自动驾驶解决方案"><a href="#一种基于云调度的特定场景自动驾驶解决方案" class="headerlink" title="一种基于云调度的特定场景自动驾驶解决方案"></a>一种基于云调度的特定场景自动驾驶解决方案</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/patent//" class="article-tag-list-link color2">patent</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/18/specific-autonomous-based-on-cloud/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-protocol_net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/17/protocol_net/">Protocol_NET</a>
-    </h1>
   
 
-        
-        <a href="/2019/05/17/protocol_net/" class="archive-article-date">
-  	<time datetime="2019-05-17T11:34:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="smartcar车到云发送信息格式协议"><a href="#smartcar车到云发送信息格式协议" class="headerlink" title="smartcar车到云发送信息格式协议"></a>smartcar车到云发送信息格式协议</h2><h3 id="目标："><a href="#目标：" class="headerlink" title="目标："></a>目标：</h3><blockquote>
-<p>在“多车仿真协议V0.2基础上”，制定该协议(暂定为V0.3版本)<br> 制定人: Lito<br> 制定时间: 2019-05-17<br> 较上一版修改内容:</p>
-<blockquote>
-<p>云车通信增加PAUSE, CONTINUE指令<br>车端增加执行状态State</p>
-</blockquote>
-</blockquote>
-<h3 id="1-协议包格式"><a href="#1-协议包格式" class="headerlink" title="1. 协议包格式"></a>1. 协议包格式</h3><blockquote>
-<p>沿用v0.2版本的协议包，定义如下:</p>
-</blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">data&#123;</span><br><span class="line">	<span class="string">"version"</span>: <span class="string">"0.3"</span>, <span class="comment"># 向后兼容</span></span><br><span class="line">	<span class="string">"type"</span>: int , <span class="comment"># 协议标识</span></span><br><span class="line">	<span class="string">"ack"</span>: int, <span class="comment"># 响应标识，取值参考ack字段说明</span></span><br><span class="line">	<span class="comment">#    请求:254</span></span><br><span class="line">	<span class="comment">#    回复:  </span></span><br><span class="line">	<span class="comment">#      成功: 0</span></span><br><span class="line">	<span class="comment">#      失败: 1</span></span><br><span class="line">	<span class="string">"requestId"</span>: int, <span class="comment"># 请求唯一标识</span></span><br><span class="line">	<span class="string">"vin"</span>: string, <span class="comment"># 车辆唯一标识, 17位</span></span><br><span class="line">	<span class="string">"data"</span>: &#123;&#125; <span class="comment"># 协议内容字段，根据type类型确定字段内容。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong>Note</strong></p>
-<blockquote>
-<ol>
-<li>以<code>\n\r</code>作为包与包之间的分隔符</li>
-<li>每个包以JSON方式序列化及反序列化</li>
-</ol>
-</blockquote>
-<h3 id="2-头部字段取值说明"><a href="#2-头部字段取值说明" class="headerlink" title="2. 头部字段取值说明"></a>2. 头部字段取值说明</h3><p><strong>type :</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">REGISTRATION = <span class="number">0x00</span>  </span><br><span class="line">LOGIN = <span class="number">0x01</span>  √</span><br><span class="line">HEARTBEAT = <span class="number">0x02</span>  √(empty)</span><br><span class="line">LOGOUT = <span class="number">0x03</span>  </span><br><span class="line">MODE_CHANGE = <span class="number">0x04</span>  </span><br><span class="line">MODULE_CHECK = <span class="number">0x05</span>  </span><br><span class="line">TASK_REQUEST = <span class="number">0x10</span>  </span><br><span class="line">TASK_REAL_TIME_INFO = <span class="number">0x011</span>  </span><br><span class="line">GPS_INFO = <span class="number">0x12</span>  </span><br><span class="line">STOP_AUTONOMOUS = <span class="number">0x13</span>  </span><br><span class="line">OBSTACLE_INFO = <span class="number">0x14</span>  </span><br><span class="line">REALTIME_CAR_INFO = <span class="number">0x15</span>  </span><br><span class="line">PREPARE_AUTONOMOUS = <span class="number">0x20</span>  </span><br><span class="line">FIRE_AUTONOMOUS = <span class="number">0x21</span>  </span><br><span class="line">LANE_AUTONOMOUS = <span class="number">0x22</span>  </span><br><span class="line">TELE_CONTROL = <span class="number">0x23</span>  </span><br><span class="line">TELE_REPORT = <span class="number">0x24</span>  </span><br><span class="line">PAUSE_AUTONOMOUS = <span class="number">0x31</span>  √(empty)</span><br><span class="line">CONTINUE_AUTONOMOUS = <span class="number">0x32</span>  √(empty)</span><br><span class="line">REQUEST_LOCK = <span class="number">0x41</span></span><br><span class="line">RESPONSE_LOCK = <span class="number">0x42</span></span><br><span class="line">RELEASE_LOCK = <span class="number">0x43</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>ack :</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">COMMAND = <span class="number">0xfe</span>  </span><br><span class="line">SUCCESS = <span class="number">0x00</span>  </span><br><span class="line">NOT_AUTHORIZED = <span class="number">0x01</span>  </span><br><span class="line">FAILED = <span class="number">0x02</span>  </span><br><span class="line">ILLEGAL_TOKEN = <span class="number">0x03</span>  </span><br><span class="line">ILLEGAL_PROTOCOL = <span class="number">0x04</span>  </span><br><span class="line">REPEATED = <span class="number">0x05</span>  </span><br><span class="line">NOT_SUPPORTED_PROTOCOL = <span class="number">0x06</span>  </span><br><span class="line">SEVER_ERROR = <span class="number">0x07</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>vin :</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vin: 以第一位区分实际车和仿真车:<span class="number">0</span>表示实际车, <span class="number">1</span>表示仿真车</span><br></pre></td></tr></table></figure></p>
-<h3 id="3-type-data说明"><a href="#3-type-data说明" class="headerlink" title="3. type.data说明"></a>3. type.data说明</h3><p><strong>LOGIN = 0x01</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"runId"</span> = (string)(rospy.get_param(<span class="string">"run_id"</span>)) <span class="comment"># 为启动时非指定的长字符串</span></span><br><span class="line"><span class="string">"nodeList"</span> = (list)(self.node_list = rosnode.get_node_names())</span><br></pre></td></tr></table></figure></p>
-<p><strong>REALTIME_CAR_INFO = 0x15</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"timestamp"</span> = rospy.Time.now().to_time() * <span class="number">1000</span></span><br><span class="line"><span class="string">"pose"</span> = &#123;</span><br><span class="line">	<span class="string">"position"</span>:&#123;<span class="string">"x"</span>=float, <span class="string">"y"</span>=float, <span class="string">"z"</span>=float&#125;</span><br><span class="line">	<span class="string">"orientation"</span>:&#123;<span class="string">"roll"</span>=float, <span class="string">"pitch"</span>=float, <span class="string">"yaw"</span>=float&#125;</span><br><span class="line">	<span class="string">"v"</span>:(float)feedback.cur_speed</span><br><span class="line">	<span class="string">"wheelAngle"</span>:(float)feedback.cur+steer</span><br><span class="line">	<span class="string">"gear"</span>:<span class="number">1</span>  <span class="comment"># <span class="doctag">TODO:</span>修改为准确档位信息:N/D/R</span></span><br><span class="line">	<span class="string">"nodes"</span>:[&#123;<span class="string">"name"</span>=string, <span class="string">"status"</span>=unit.state, <span class="string">"type"</span>=unit.category&#125;,....]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>LANE_AUTONOMOUS = 0x22</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"taskId"</span> = (string)</span><br><span class="line"><span class="string">"speed"</span> = (float)</span><br><span class="line"><span class="string">"route"</span> = [&#123;<span class="string">"outset"</span> = &#123;<span class="string">"name"</span>,<span class="string">"x"</span>,<span class="string">"y"</span>&#125;</span><br><span class="line">			<span class="string">"goal"</span>= &#123;<span class="string">"name"</span>,<span class="string">"x"</span>,<span class="string">"y"</span>&#125;</span><br><span class="line">			<span class="string">"v"</span> = (float)</span><br><span class="line">			<span class="string">"type"</span> = (string)(见下部分ActionType)</span><br><span class="line">			<span class="string">"laneName"</span> = (string)</span><br><span class="line">			<span class="string">"points"</span> = [&#123;<span class="string">"speed_limit"</span>,</span><br><span class="line">				     <span class="string">"is_lane"</span>,</span><br><span class="line">				     <span class="string">"lane_id"</span>,</span><br><span class="line">				     <span class="string">"cross_id"</span>,</span><br><span class="line">		    		 <span class="string">"position"</span>:&#123;<span class="string">"x"</span>,<span class="string">"y"</span>,<span class="string">"z"</span>&#125;,</span><br><span class="line">		     	     <span class="string">"orientation"</span>:&#123;<span class="string">"x"</span>,<span class="string">"y"</span>,<span class="string">"z"</span>,<span class="string">"w"</span>&#125;</span><br><span class="line">				    &#125;.....]</span><br><span class="line">	   &#125;...]</span><br></pre></td></tr></table></figure></p>
-<p><strong>REQUEST_LOCK = 0x41</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"lane_id"</span>:(int)</span><br><span class="line"><span class="string">"cross_id"</span>:(int)</span><br></pre></td></tr></table></figure></p>
-<p><strong>RESPONSE_LOCK = 0x42</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(empty)</span><br></pre></td></tr></table></figure></p>
-<p><strong>RELEASE_LOCK = 0x43</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"lane_id"</span>: (int)</span><br><span class="line"><span class="string">"cross_id"</span>: (int)</span><br></pre></td></tr></table></figure></p>
-<h2 id="车端"><a href="#车端" class="headerlink" title="车端:"></a>车端:</h2><h3 id="1-通信事件类别"><a href="#1-通信事件类别" class="headerlink" title="1. 通信事件类别"></a>1. 通信事件类别</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">InterruptedEvent = <span class="number">0x10</span> <span class="comment"># <span class="doctag">TODO:</span>(增加)注册处理函数(at app.py)</span></span><br><span class="line">ConnectionMadeEvent = <span class="number">0x11</span></span><br><span class="line">ConnectionDisconnectedEvent = <span class="number">0x12</span></span><br><span class="line">DataReceivedEvent = <span class="number">0x13</span></span><br><span class="line">TaskFinishedEvent = <span class="number">0x20</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-任务状态类别"><a href="#2-任务状态类别" class="headerlink" title="2. 任务状态类别"></a>2. 任务状态类别</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CREATED = <span class="number">0x00</span></span><br><span class="line">RUNNING = <span class="number">0x03</span></span><br><span class="line">FINISHED = <span class="number">0x08</span></span><br><span class="line">INTERRUPTED = <span class="number">0x10</span></span><br><span class="line">DEVICE_INTERRUPTED = <span class="number">0x18</span></span><br><span class="line">KILLING = <span class="number">0x30</span></span><br><span class="line">KILLED = <span class="number">0x31</span></span><br></pre></td></tr></table></figure>
-<h3 id="3-任务类别ActionType"><a href="#3-任务类别ActionType" class="headerlink" title="3. 任务类别ActionType"></a>3. 任务类别ActionType</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">REPLAY = <span class="string">"REPLAY"</span></span><br><span class="line">LANE = <span class="string">"LANE"</span></span><br><span class="line">TRAJECTORY = <span class="string">"TRJ"</span></span><br><span class="line">SITE = <span class="string">"SITE"</span></span><br><span class="line">LIDAR = <span class="string">"LIDAR"</span></span><br></pre></td></tr></table></figure>
-<h3 id="4-车辆状态-定义中"><a href="#4-车辆状态-定义中" class="headerlink" title="4. 车辆状态(定义中)"></a>4. 车辆状态(定义中)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">State.msg</span><br><span class="line">  string main_state</span><br><span class="line">  string acc_state</span><br><span class="line">  string str_state</span><br><span class="line">  string behavior_state</span><br></pre></td></tr></table></figure>
-<p><strong>main_state</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PAUSE = <span class="string">"PAUSE"</span></span><br><span class="line">RUN = <span class="string">"RUN"</span></span><br><span class="line">STOP = <span class="string">"STOP"</span></span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/smartcar//" class="article-tag-list-link color4">smartcar</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/17/protocol_net/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-python-apscheduler" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/17/python-apscheduler/">python-apscheduler</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/17/python-apscheduler/" class="archive-article-date">
-  	<time datetime="2019-05-17T03:34:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="apscheduler"><a href="#apscheduler" class="headerlink" title="apscheduler"></a>apscheduler</h1><p>Advanced Python Scheduler</p>
-        
-          <a class="article-more-a" href="/2019/05/17/python-apscheduler/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/python//" class="article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/17/python-apscheduler/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-05-16T14:18:29.588Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-16</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/16/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -759,8 +342,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
