@@ -152,6 +152,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-pycharm配置ROS" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/29/pycharm配置ROS/">pycharm配置ROS</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/29/pycharm配置ROS/" class="archive-article-date">
+  	<time datetime="2019-05-29T10:31:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="pycharm设置环境变量"><a href="#pycharm设置环境变量" class="headerlink" title="pycharm设置环境变量"></a>pycharm设置环境变量</h1><p>pycharm 不会自动导入系统的环境变量,需要单独进行设置</p>
+<p>以pycharm设置ros环境变量为例</p>
+<ol>
+<li><p>在<code>/usr/share/applications/</code>或者<code>~/.local/share/applications/</code>下找<code>jetbrains-xxxxx.desktop</code>(注意:名字可能不一样,使用Tab进行补全.该文件并非新建,而是在安装pycharm时候已经存在的)</p>
+<blockquote>
+<p><code>Exec=bash -i -c /home/sin/soft/pycharm-2018xx/bin/pycharm.sh</code> </p>
+</blockquote>
+</li>
+<li><p>直接在pycharm中设置</p>
+</li>
+</ol>
+<blockquote>
+<p>好像是在Run-&gt;Debug-&gt;Edit Configuration-&gt;Configuration-&gt;Environment variable中添加PYTHONPATH变量，加入ros相关路径。没试过.</p>
+</blockquote>
+<ol start="3">
+<li>pycharm无法自动找到自定义的msg,需要手动加入<br><a href="https://blog.csdn.net/weixin_41698305/article/details/88797590" target="_blank" rel="noopener">参考</a><br>即要保证~/catkin_ws/devel/lib/python2.7/dist-packages/beginner_tutorials/msg被添加到<code>$PYTHONPATH</code><br>打开Pycharm的-&gt;<code>Settings</code>设置中的<code>Project Interpreter</code>,点击-&gt;<code>show all</code>,再点击<code>show path for project interpreter</code>,点击加号将<code>~/catkin_ws/devel/lib/python2.7/dist-packages</code>添加到python路径，如下图所示：<br><img src="https://img-blog.csdnimg.cn/20190325161300782.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MTY5ODMwNQ==,size_16,color_FFFFFF,t_70" alt></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">pycharm, python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/29/pycharm配置ROS/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-FactoryMethod" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -831,6 +921,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DesignModule</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">pycharm, python</a>
               </li>
             
             <div class="clearfix"></div>
