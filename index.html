@@ -189,6 +189,10 @@
 <blockquote>
 <p>!! 还有另外一种方式,直接使用类的成员函数作为线程函数,同时传入线程函数和类的实例对象,例如:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">Task task;</span><br><span class="line"></span><br><span class="line">thread(&amp;Task::func, &amp;task, <span class="number">20</span>);</span><br><span class="line"><span class="comment">// 第一个为类的实例函数,作为线程启动函数</span></span><br><span class="line"><span class="comment">// 紧接着要传入一个类的实例</span></span><br><span class="line"><span class="comment">// 第三个参数才是实例函数的第一个参数</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<p>如果使用类内函数但是没有传入类的实例,那么会出现`invalid use of non-static member function’ 错误</p>
+<blockquote>
+<p>总结:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">要使用单独一个线程执行的任务,通常有两种方式:</span><br><span class="line">    1. 将可调用函数写到类外,传入足够的参数</span><br><span class="line">    2. 使用类内参数,但是需要同时传入类的实例</span><br></pre></td></tr></table></figure></p>
+</blockquote>
 <h3 id="1-2-线程结束"><a href="#1-2-线程结束" class="headerlink" title="1.2 线程结束"></a>1.2 线程结束</h3><p>两种结束方式:</p>
 <blockquote>
 <ol>
@@ -725,11 +729,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pycharm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pycharm</a>
         		</li>
       		
 		</ul>
@@ -1231,7 +1235,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pycharm</a>
+                <a href="javascript:void(0)" class="js-tag color5">TemplateMethod</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1239,7 +1243,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">TemplateMethod</a>
+                <a href="javascript:void(0)" class="js-tag color3">pycharm</a>
               </li>
             
             <div class="clearfix"></div>

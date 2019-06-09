@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="Neo&#39;s blog">
 <meta property="og:description" content="实现任务并发有多进程和多线程两种方式.多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:多线程和锁是密不可分的    共享数据的管理 和 线程间的通信 是多线程编程的两大核心  0. 一个简单的例子123456789101112131415#include &amp;lt;iostream&amp;gt;#include &amp;lt;thea">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-09T11:19:06.466Z">
+<meta property="og:updated_time" content="2019-06-09T14:07:50.432Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cplusplus_threads">
 <meta name="twitter:description" content="实现任务并发有多进程和多线程两种方式.多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:多线程和锁是密不可分的    共享数据的管理 和 线程间的通信 是多线程编程的两大核心  0. 一个简单的例子123456789101112131415#include &amp;lt;iostream&amp;gt;#include &amp;lt;thea">
@@ -191,6 +191,10 @@
 </blockquote>
 <blockquote>
 <p>!! 还有另外一种方式,直接使用类的成员函数作为线程函数,同时传入线程函数和类的实例对象,例如:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">Task task;</span><br><span class="line"></span><br><span class="line">thread(&amp;Task::func, &amp;task, <span class="number">20</span>);</span><br><span class="line"><span class="comment">// 第一个为类的实例函数,作为线程启动函数</span></span><br><span class="line"><span class="comment">// 紧接着要传入一个类的实例</span></span><br><span class="line"><span class="comment">// 第三个参数才是实例函数的第一个参数</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>如果使用类内函数但是没有传入类的实例,那么会出现`invalid use of non-static member function’ 错误</p>
+<blockquote>
+<p>总结:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">要使用单独一个线程执行的任务,通常有两种方式:</span><br><span class="line">    1. 将可调用函数写到类外,传入足够的参数</span><br><span class="line">    2. 使用类内参数,但是需要同时传入类的实例</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <h3 id="1-2-线程结束"><a href="#1-2-线程结束" class="headerlink" title="1.2 线程结束"></a>1.2 线程结束</h3><p>两种结束方式:</p>
 <blockquote>
@@ -465,7 +469,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">pycharm</a>
+                <a href="javascript:void(0)" class="js-tag color5">TemplateMethod</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -473,7 +477,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">TemplateMethod</a>
+                <a href="javascript:void(0)" class="js-tag color3">pycharm</a>
               </li>
             
             <div class="clearfix"></div>
