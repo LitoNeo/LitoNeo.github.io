@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: DesignModule | Neo&#39;s blog</title>
+  <title>cplusplus_lock | Neo&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Neo&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/tags/DesignModule/index.html">
+  <meta name="description" content="123mutex       --最简单的互斥锁lock_guard  --简单的锁unique_lock --高级的锁 1. mutexmutex是最简单的锁,通过x.lock()和x.unlock()来管理即可但是该锁的缺点也很明显,就是很容易由于各种错误造成锁不能释放示例:1234567891011121314#include &amp;lt;iostream&amp;gt;#include &amp;lt;mut">
+<meta name="keywords" content="c++三种类型的锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cplusplus_lock">
+<meta property="og:url" content="http://yoursite.com/2019/06/09/cplusplus-lock/index.html">
 <meta property="og:site_name" content="Neo&#39;s blog">
+<meta property="og:description" content="123mutex       --最简单的互斥锁lock_guard  --简单的锁unique_lock --高级的锁 1. mutexmutex是最简单的锁,通过x.lock()和x.unlock()来管理即可但是该锁的缺点也很明显,就是很容易由于各种错误造成锁不能释放示例:1234567891011121314#include &amp;lt;iostream&amp;gt;#include &amp;lt;mut">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-09T10:26:01.153Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Neo&#39;s blog">
+<meta name="twitter:title" content="cplusplus_lock">
+<meta name="twitter:description" content="123mutex       --最简单的互斥锁lock_guard  --简单的锁unique_lock --高级的锁 1. mutexmutex是最简单的锁,通过x.lock()和x.unlock()来管理即可但是该锁的缺点也很明显,就是很容易由于各种错误造成锁不能释放示例:1234567891011121314#include &amp;lt;iostream&amp;gt;#include &amp;lt;mut">
   
     <link rel="alternative" href="/atom.xml" title="Neo&#39;s blog" type="application/atom+xml">
   
@@ -150,60 +155,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cplusplus-lock" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/27/BuilderMedule/" class="archive-article-date">
-  	<time datetime="2019-05-27T11:31:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/27/BuilderMedule/">BuilderMedule</a>
+    <h1 class="article-title" itemprop="name">
+      cplusplus_lock
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/06/09/cplusplus-lock/" class="archive-article-date">
+  	<time datetime="2019-06-09T10:11:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mutex       --最简单的互斥锁</span><br><span class="line">lock_guard  --简单的锁</span><br><span class="line">unique_lock --高级的锁</span><br></pre></td></tr></table></figure>
+<h2 id="1-mutex"><a href="#1-mutex" class="headerlink" title="1. mutex"></a>1. mutex</h2><p><code>mutex</code>是最简单的锁,通过<code>x.lock()</code>和<code>x.unlock()</code>来管理即可<br>但是该锁的缺点也很明显,就是很容易由于各种错误造成锁不能释放<br>示例:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mutex&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line">mutex mu;</span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function">def <span class="title">Counter</span><span class="params">()</span></span>&#123;</span><br><span class="line">    mu.lock();</span><br><span class="line">    <span class="keyword">int</span> i = ++cnt;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"cnt = "</span> &lt;&lt; i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    <span class="comment">// 或者其他的访问函数,锁可以保证对该操作的访问是顺序的</span></span><br><span class="line">    mu.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上例中,如果lock()和unlock()之间的代码错误,将导致锁永远不能释放.<br> –该锁不智能</p>
+<h2 id="2-lock-guard"><a href="#2-lock-guard" class="headerlink" title="2. lock_guard"></a>2. lock_guard</h2> <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    lock_guard(mutex) g(mutex);</span><br><span class="line">    func();  <span class="comment">// 临界区</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 上例中,<code>lock_guard</code>的声明周期是在这个大括号里{}, 即无论是程序正常结束,还是由于func()异常导致结束,锁都会释放.</p>
+<h2 id="3-unique-lock"><a href="#3-unique-lock" class="headerlink" title="3. unique_lock"></a>3. unique_lock</h2><p>#TODO 整理#</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DesignModule</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">c++三种类型的锁</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/06/09/cplusplus-lock/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2019/06/09/cplusplus-threads/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          cplusplus_threads
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/06/09/cplusplus-keywords/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cplusplus_keywords</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -226,9 +363,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
@@ -296,11 +433,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DesignModule</a>
+                <a href="javascript:void(0)" class="js-tag color1">关键字解析</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">FactoryMethod</a>
+                <a href="javascript:void(0)" class="js-tag color1">c++线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">c++三种类型的锁</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -309,6 +450,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">TemplateMethod</a>
               </li>
             
             <div class="clearfix"></div>

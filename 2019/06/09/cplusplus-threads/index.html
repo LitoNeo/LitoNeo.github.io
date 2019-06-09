@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Category: CloudBasedAutonomous | Neo&#39;s blog</title>
+  <title>cplusplus_threads | Neo&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Neo&#39;s blog">
-<meta property="og:url" content="http://yoursite.com/categories/CloudBasedAutonomous/index.html">
+  <meta name="description" content="实现任务并发有多进程和多线程两种方式.多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:多线程和锁是密不可分的    共享数据的管理 和 线程间的通信 是多线程编程的两大核心  0. 一个简单的例子123456789101112131415#include &amp;lt;iostream&amp;gt;#include &amp;lt;thea">
+<meta name="keywords" content="c++线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cplusplus_threads">
+<meta property="og:url" content="http://yoursite.com/2019/06/09/cplusplus-threads/index.html">
 <meta property="og:site_name" content="Neo&#39;s blog">
+<meta property="og:description" content="实现任务并发有多进程和多线程两种方式.多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:多线程和锁是密不可分的    共享数据的管理 和 线程间的通信 是多线程编程的两大核心  0. 一个简单的例子123456789101112131415#include &amp;lt;iostream&amp;gt;#include &amp;lt;thea">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-09T11:19:06.466Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Neo&#39;s blog">
+<meta name="twitter:title" content="cplusplus_threads">
+<meta name="twitter:description" content="实现任务并发有多进程和多线程两种方式.多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:多线程和锁是密不可分的    共享数据的管理 和 线程间的通信 是多线程编程的两大核心  0. 一个简单的例子123456789101112131415#include &amp;lt;iostream&amp;gt;#include &amp;lt;thea">
   
     <link rel="alternative" href="/atom.xml" title="Neo&#39;s blog" type="application/atom+xml">
   
@@ -150,60 +155,212 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-cplusplus-threads" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/05/18/ArticleCollect/" class="archive-article-date">
-  	<time datetime="2019-05-18T05:19:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/05/18/ArticleCollect/">ArticleCollect</a>
+    <h1 class="article-title" itemprop="name">
+      cplusplus_threads
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
+        
+        <a href="/2019/06/09/cplusplus-threads/" class="archive-article-date">
+  	<time datetime="2019-06-09T10:29:03.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实现任务并发有<code>多进程</code>和<code>多线程</code>两种方式.<br>多进程很重,但是操作系统提供了一系列的操作来保证进程通信和避免死锁.<br>多线程是轻量化的,但是需要程序员自己实现锁的机制  –即:<code>多线程和锁是密不可分的</code>  </p>
+<blockquote>
+<p><strong>共享数据的管理</strong> 和 <strong>线程间的通信</strong> 是多线程编程的两大核心</p>
+</blockquote>
+<h2 id="0-一个简单的例子"><a href="#0-一个简单的例子" class="headerlink" title="0. 一个简单的例子"></a>0. 一个简单的例子</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thead&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">show</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">        <span class="function">thread <span class="title">t</span><span class="params">(show,i)</span></span>;  <span class="comment">// 创建线程:参数1-可调用(callable)类型, 参数2-传入的参数</span></span><br><span class="line">        t.detach(); <span class="comment">// detach() 表示不必等待线程结束,可直接运行后续代码</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注: 以上只展示了简单的线程创建,后台运行,传入参数等; 由于没有使用锁机制,上述程序输出是错的</p>
+<h2 id="1-线程管理"><a href="#1-线程管理" class="headerlink" title="1. 线程管理"></a>1. 线程管理</h2><h3 id="1-1-启动一个线程"><a href="#1-1-启动一个线程" class="headerlink" title="1.1 启动一个线程"></a>1.1 启动一个线程</h3><p>启动一个线程很简单,只需要使用thread创建并管理即可.  </p>
+<blockquote>
+<p>注: thread传入的需要是一个callable可调用的类型,比如函数<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果传入的是一个类的实例,那么需要重载函数调用运算符(也就是括号)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operator</span><span class="params">()</span> <span class="params">(<span class="keyword">int</span> i)</span></span>&#123;</span><br><span class="line">        func();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<p>有关函数重载和操作符重载,参考<a href="https://www.runoob.com/cplusplus/cpp-overloading.html" target="_blank" rel="noopener">这里</a></p>
+<blockquote>
+<p>注: 建议使用<code>std::thread t{Task()}</code>代替<code>std::thread t(Task())</code>来创建并调用线程, 以避免一个C++的语法解析错误<code>（C++&#39;s most vexing parse）</code></p>
+</blockquote>
+<blockquote>
+<p>!! 还有另外一种方式,直接使用类的成员函数作为线程函数,同时传入线程函数和类的实例对象,例如:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Task</span>&#123;</span></span><br><span class="line">    <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line">Task task;</span><br><span class="line"></span><br><span class="line">thread(&amp;Task::func, &amp;task, <span class="number">20</span>);</span><br><span class="line"><span class="comment">// 第一个为类的实例函数,作为线程启动函数</span></span><br><span class="line"><span class="comment">// 紧接着要传入一个类的实例</span></span><br><span class="line"><span class="comment">// 第三个参数才是实例函数的第一个参数</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="1-2-线程结束"><a href="#1-2-线程结束" class="headerlink" title="1.2 线程结束"></a>1.2 线程结束</h3><p>两种结束方式:</p>
+<blockquote>
+<ol>
+<li><code>detach()</code>启动的线程自主在后台运行,自动结束;当前代码继续执行,不等待线程结束 -创建线程后直接调用t.detach()</li>
+<li><code>join()</code>当前进程(线程)等待启动的线程结束后再往下执行.<code>(阻塞式)</code> -在合适的位置调用join() 等待</li>
+</ol>
+</blockquote>
+<p>不同结束方式除了是否阻塞,还有一点不同:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">detach()后台执行时,如果当前线程结束,则若detach()的线程中有对当前线程数据的引用,则会出错.</span><br><span class="line">-- 因此使用detach()方法时,一定要使用 *值传递* 的方式将数据传入线程,而不能使用引用传递.</span><br></pre></td></tr></table></figure></p>
+<p>join()阻塞式方式没有这个问题.<br>但是为了方式使用join()的线程被异常所终结,需要使用<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">// 创建线程,执行</span></span><br><span class="line">&#125;<span class="keyword">catch</span>&#123;</span><br><span class="line">    <span class="comment">// 捕获异常,处理</span></span><br><span class="line">&#125;</span><br><span class="line">t.join();  <span class="comment">// 最终一定会join()</span></span><br></pre></td></tr></table></figure></p>
+<p>当然还有更好的方式,即<code>资源获取即初始化</code>(TODO)</p>
+<h3 id="1-3-向线程传递参数"><a href="#1-3-向线程传递参数" class="headerlink" title="1.3 向线程传递参数"></a>1.3 向线程传递参数</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span> a, <span class="built_in">string</span> b)</span></span>&#123;</span><br><span class="line">    <span class="comment">// do </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function">thread <span class="title">t</span><span class="params">(func, <span class="number">12</span>, <span class="string">"Hello"</span>)</span></span>;  <span class="comment">// 依次传递即可</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注: 线程传递参数默认都是<code>值传递</code>, <code>即使参数的类型是引用</code>,也会被转化  </p>
+</blockquote>
+<p><strong><em>如果在线程中使用引用来更新对象时，就需要注意了。默认的是将对象拷贝到线程空间，其引用的是拷贝的线程空间的对象，而不是初始希望改变的对象.</em></strong><br>解决方案: 使用<code>ref()</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">thread <span class="title">t</span><span class="params">(func, <span class="built_in">std</span>::ref(node))</span></span>;</span><br><span class="line"><span class="comment">// 此时对node实例所做的修改其实就是对当前线程中node直接修改</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="1-4-转移线程的所有权move"><a href="#1-4-转移线程的所有权move" class="headerlink" title="1.4 转移线程的所有权move"></a>1.4 转移线程的所有权move</h3><p><code>thread可移动但不可复制</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">thread <span class="title">t1</span><span class="params">(f)</span></span>;</span><br><span class="line"><span class="function">thread <span class="title">t3</span><span class="params">(move(t1))</span></span>;</span><br></pre></td></tr></table></figure></p>
+<p>以上,将线程所有权从t1转移到t3,t1调用join()等就会出错</p>
+<p>在当前线程上调用<code>this_thread::get_id()</code>获取线程标识</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">c++线程</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/CloudBasedAutonomous//" class="article-tag-list-link color1">CloudBasedAutonomous</a>
+        			<a href="/categories/C//" class="article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/06/09/cplusplus-threads/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/06/09/cplusplus-lock/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">cplusplus_lock</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -226,10 +383,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
